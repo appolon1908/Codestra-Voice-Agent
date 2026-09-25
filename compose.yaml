@@ -5,6 +5,9 @@ services:
       VOICE_API_TOKEN: ""
       KOKORO_URL: http://host.docker.internal:8880
       DJONE_URL: http://host.docker.internal:8092
+      DJONE_API_TOKEN: ""
     extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes:
+      - /home/codestra/Music/DJONE/Generated:/audio
     ports: ["127.0.0.1:18100:8090"]
     restart: unless-stopped
