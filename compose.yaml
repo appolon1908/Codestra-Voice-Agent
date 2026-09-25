@@ -1,0 +1,10 @@
+services:
+  voice-agent:
+    build: .
+    environment:
+      VOICE_API_TOKEN: ""
+      KOKORO_URL: http://host.docker.internal:8880
+      DJONE_URL: http://host.docker.internal:8092
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    ports: ["127.0.0.1:8096:8090"]
+    restart: unless-stopped
