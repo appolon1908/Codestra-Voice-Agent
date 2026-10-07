@@ -1,0 +1,775 @@
+{
+  "schema_version": "codestra.workstations.v3",
+  "family": "voice-agent",
+  "product": "Codestra-Voice-Agent",
+  "sections": [
+    {
+      "section": "va-01-runtime",
+      "branch": "section/va-01-runtime",
+      "order": 1,
+      "depends_on": [],
+      "subsections": [
+        {
+          "subsection": "01-session-runtime",
+          "workstation_id": "codestra-voice-agent::va-01-runtime::01-session-runtime",
+          "branch": "subsection/va-01-runtime--01-session-runtime",
+          "parent_branch": "section/va-01-runtime",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-01-runtime/subsections/01-session-runtime/repo"
+        },
+        {
+          "subsection": "02-config",
+          "workstation_id": "codestra-voice-agent::va-01-runtime::02-config",
+          "branch": "subsection/va-01-runtime--02-config",
+          "parent_branch": "section/va-01-runtime",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-01-runtime::01-session-runtime"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-01-runtime/subsections/02-config/repo"
+        },
+        {
+          "subsection": "03-health",
+          "workstation_id": "codestra-voice-agent::va-01-runtime::03-health",
+          "branch": "subsection/va-01-runtime--03-health",
+          "parent_branch": "section/va-01-runtime",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-01-runtime::02-config"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-01-runtime/subsections/03-health/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-02-conversation",
+      "branch": "section/va-02-conversation",
+      "order": 2,
+      "depends_on": [
+        "codestra-voice-agent::va-01-runtime"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-turn-state",
+          "workstation_id": "codestra-voice-agent::va-02-conversation::01-turn-state",
+          "branch": "subsection/va-02-conversation--01-turn-state",
+          "parent_branch": "section/va-02-conversation",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-02-conversation/subsections/01-turn-state/repo"
+        },
+        {
+          "subsection": "02-memory-context",
+          "workstation_id": "codestra-voice-agent::va-02-conversation::02-memory-context",
+          "branch": "subsection/va-02-conversation--02-memory-context",
+          "parent_branch": "section/va-02-conversation",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-02-conversation::01-turn-state"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-02-conversation/subsections/02-memory-context/repo"
+        },
+        {
+          "subsection": "03-interruptions",
+          "workstation_id": "codestra-voice-agent::va-02-conversation::03-interruptions",
+          "branch": "subsection/va-02-conversation--03-interruptions",
+          "parent_branch": "section/va-02-conversation",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-02-conversation::02-memory-context"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-02-conversation/subsections/03-interruptions/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-03-stt",
+      "branch": "section/va-03-stt",
+      "order": 3,
+      "depends_on": [
+        "codestra-voice-agent::va-02-conversation"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-audio-ingest",
+          "workstation_id": "codestra-voice-agent::va-03-stt::01-audio-ingest",
+          "branch": "subsection/va-03-stt--01-audio-ingest",
+          "parent_branch": "section/va-03-stt",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-03-stt/subsections/01-audio-ingest/repo"
+        },
+        {
+          "subsection": "02-transcription",
+          "workstation_id": "codestra-voice-agent::va-03-stt::02-transcription",
+          "branch": "subsection/va-03-stt--02-transcription",
+          "parent_branch": "section/va-03-stt",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-03-stt::01-audio-ingest"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-03-stt/subsections/02-transcription/repo"
+        },
+        {
+          "subsection": "03-endpointing",
+          "workstation_id": "codestra-voice-agent::va-03-stt::03-endpointing",
+          "branch": "subsection/va-03-stt--03-endpointing",
+          "parent_branch": "section/va-03-stt",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-03-stt::02-transcription"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-03-stt/subsections/03-endpointing/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-04-llm",
+      "branch": "section/va-04-llm",
+      "order": 4,
+      "depends_on": [
+        "codestra-voice-agent::va-03-stt"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-prompt-policy",
+          "workstation_id": "codestra-voice-agent::va-04-llm::01-prompt-policy",
+          "branch": "subsection/va-04-llm--01-prompt-policy",
+          "parent_branch": "section/va-04-llm",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-04-llm/subsections/01-prompt-policy/repo"
+        },
+        {
+          "subsection": "02-tool-routing",
+          "workstation_id": "codestra-voice-agent::va-04-llm::02-tool-routing",
+          "branch": "subsection/va-04-llm--02-tool-routing",
+          "parent_branch": "section/va-04-llm",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-04-llm::01-prompt-policy"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-04-llm/subsections/02-tool-routing/repo"
+        },
+        {
+          "subsection": "03-guardrails",
+          "workstation_id": "codestra-voice-agent::va-04-llm::03-guardrails",
+          "branch": "subsection/va-04-llm--03-guardrails",
+          "parent_branch": "section/va-04-llm",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-04-llm::02-tool-routing"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-04-llm/subsections/03-guardrails/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-05-tts",
+      "branch": "section/va-05-tts",
+      "order": 5,
+      "depends_on": [
+        "codestra-voice-agent::va-04-llm"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-voice-selection",
+          "workstation_id": "codestra-voice-agent::va-05-tts::01-voice-selection",
+          "branch": "subsection/va-05-tts--01-voice-selection",
+          "parent_branch": "section/va-05-tts",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-05-tts/subsections/01-voice-selection/repo"
+        },
+        {
+          "subsection": "02-streaming",
+          "workstation_id": "codestra-voice-agent::va-05-tts::02-streaming",
+          "branch": "subsection/va-05-tts--02-streaming",
+          "parent_branch": "section/va-05-tts",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-05-tts::01-voice-selection"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-05-tts/subsections/02-streaming/repo"
+        },
+        {
+          "subsection": "03-fallback",
+          "workstation_id": "codestra-voice-agent::va-05-tts::03-fallback",
+          "branch": "subsection/va-05-tts--03-fallback",
+          "parent_branch": "section/va-05-tts",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-05-tts::02-streaming"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-05-tts/subsections/03-fallback/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-06-telephony",
+      "branch": "section/va-06-telephony",
+      "order": 6,
+      "depends_on": [
+        "codestra-voice-agent::va-05-tts"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-call-session",
+          "workstation_id": "codestra-voice-agent::va-06-telephony::01-call-session",
+          "branch": "subsection/va-06-telephony--01-call-session",
+          "parent_branch": "section/va-06-telephony",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-06-telephony/subsections/01-call-session/repo"
+        },
+        {
+          "subsection": "02-transfer",
+          "workstation_id": "codestra-voice-agent::va-06-telephony::02-transfer",
+          "branch": "subsection/va-06-telephony--02-transfer",
+          "parent_branch": "section/va-06-telephony",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-06-telephony::01-call-session"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-06-telephony/subsections/02-transfer/repo"
+        },
+        {
+          "subsection": "03-dtmf-controls",
+          "workstation_id": "codestra-voice-agent::va-06-telephony::03-dtmf-controls",
+          "branch": "subsection/va-06-telephony--03-dtmf-controls",
+          "parent_branch": "section/va-06-telephony",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-06-telephony::02-transfer"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-06-telephony/subsections/03-dtmf-controls/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-07-tools",
+      "branch": "section/va-07-tools",
+      "order": 7,
+      "depends_on": [
+        "codestra-voice-agent::va-06-telephony"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-registry",
+          "workstation_id": "codestra-voice-agent::va-07-tools::01-registry",
+          "branch": "subsection/va-07-tools--01-registry",
+          "parent_branch": "section/va-07-tools",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-07-tools/subsections/01-registry/repo"
+        },
+        {
+          "subsection": "02-permissions",
+          "workstation_id": "codestra-voice-agent::va-07-tools::02-permissions",
+          "branch": "subsection/va-07-tools--02-permissions",
+          "parent_branch": "section/va-07-tools",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-07-tools::01-registry"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-07-tools/subsections/02-permissions/repo"
+        },
+        {
+          "subsection": "03-results-reconciliation",
+          "workstation_id": "codestra-voice-agent::va-07-tools::03-results-reconciliation",
+          "branch": "subsection/va-07-tools--03-results-reconciliation",
+          "parent_branch": "section/va-07-tools",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-07-tools::02-permissions"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-07-tools/subsections/03-results-reconciliation/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-08-safety",
+      "branch": "section/va-08-safety",
+      "order": 8,
+      "depends_on": [
+        "codestra-voice-agent::va-07-tools"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-tenant-policy",
+          "workstation_id": "codestra-voice-agent::va-08-safety::01-tenant-policy",
+          "branch": "subsection/va-08-safety--01-tenant-policy",
+          "parent_branch": "section/va-08-safety",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-08-safety/subsections/01-tenant-policy/repo"
+        },
+        {
+          "subsection": "02-effect-gates",
+          "workstation_id": "codestra-voice-agent::va-08-safety::02-effect-gates",
+          "branch": "subsection/va-08-safety--02-effect-gates",
+          "parent_branch": "section/va-08-safety",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-08-safety::01-tenant-policy"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-08-safety/subsections/02-effect-gates/repo"
+        },
+        {
+          "subsection": "03-audit",
+          "workstation_id": "codestra-voice-agent::va-08-safety::03-audit",
+          "branch": "subsection/va-08-safety--03-audit",
+          "parent_branch": "section/va-08-safety",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-08-safety::02-effect-gates"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-08-safety/subsections/03-audit/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-09-observability",
+      "branch": "section/va-09-observability",
+      "order": 9,
+      "depends_on": [
+        "codestra-voice-agent::va-08-safety"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-latency",
+          "workstation_id": "codestra-voice-agent::va-09-observability::01-latency",
+          "branch": "subsection/va-09-observability--01-latency",
+          "parent_branch": "section/va-09-observability",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-09-observability/subsections/01-latency/repo"
+        },
+        {
+          "subsection": "02-quality",
+          "workstation_id": "codestra-voice-agent::va-09-observability::02-quality",
+          "branch": "subsection/va-09-observability--02-quality",
+          "parent_branch": "section/va-09-observability",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-09-observability::01-latency"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-09-observability/subsections/02-quality/repo"
+        },
+        {
+          "subsection": "03-errors-slo",
+          "workstation_id": "codestra-voice-agent::va-09-observability::03-errors-slo",
+          "branch": "subsection/va-09-observability--03-errors-slo",
+          "parent_branch": "section/va-09-observability",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-09-observability::02-quality"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-09-observability/subsections/03-errors-slo/repo"
+        }
+      ]
+    },
+    {
+      "section": "va-10-release",
+      "branch": "section/va-10-release",
+      "order": 10,
+      "depends_on": [
+        "codestra-voice-agent::va-09-observability"
+      ],
+      "subsections": [
+        {
+          "subsection": "01-testing",
+          "workstation_id": "codestra-voice-agent::va-10-release::01-testing",
+          "branch": "subsection/va-10-release--01-testing",
+          "parent_branch": "section/va-10-release",
+          "order": 1,
+          "depends_on": [],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-10-release/subsections/01-testing/repo"
+        },
+        {
+          "subsection": "02-load-dr",
+          "workstation_id": "codestra-voice-agent::va-10-release::02-load-dr",
+          "branch": "subsection/va-10-release--02-load-dr",
+          "parent_branch": "section/va-10-release",
+          "order": 2,
+          "depends_on": [
+            "codestra-voice-agent::va-10-release::01-testing"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-10-release/subsections/02-load-dr/repo"
+        },
+        {
+          "subsection": "03-certification-promotion",
+          "workstation_id": "codestra-voice-agent::va-10-release::03-certification-promotion",
+          "branch": "subsection/va-10-release--03-certification-promotion",
+          "parent_branch": "section/va-10-release",
+          "order": 3,
+          "depends_on": [
+            "codestra-voice-agent::va-10-release::02-load-dr"
+          ],
+          "required_gates": [
+            "lint",
+            "unit",
+            "integration",
+            "contract",
+            "security",
+            "clean_tree",
+            "remote_sha_match",
+            "ci_exact_sha",
+            "review",
+            "regression"
+          ],
+          "worktree": "/srv/codestra/workstations/Codestra-Voice-Agent/sections/va-10-release/subsections/03-certification-promotion/repo"
+        }
+      ]
+    }
+  ]
+}
