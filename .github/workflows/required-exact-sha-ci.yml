@@ -69,6 +69,17 @@ jobs:
           fi
           git fsck --no-progress
 
+      - name: Run Voice Agent Python project gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          venv="$RUNNER_TEMP/voice-agent-venv"
+          python3 -m venv "$venv"
+          "$venv/bin/python" -m pip install --disable-pip-version-check -r requirements.txt
+          "$venv/bin/python" -m compileall -q .
+          "$venv/bin/python" -m pip check
+          "$venv/bin/python" -m unittest discover -v
+
       - name: Record exact-SHA evidence in runner-controlled storage
         shell: bash
         run: |
