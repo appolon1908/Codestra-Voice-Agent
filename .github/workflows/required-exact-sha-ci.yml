@@ -82,6 +82,29 @@ jobs:
           "$venv/bin/python" -m pip check
           "$venv/bin/python" -m unittest discover -v
 
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Voice Agent project checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r requirements.txt
+          python -m compileall -q app
+          python - <<'PY'
+          import app.main as m
+          paths = {route.path for route in m.app.routes}
+          required = {"/health", "/v1/providers", "/v1/speech"}
+          missing = required - paths
+          if missing:
+              raise SystemExit(f"missing routes: {sorted(missing)}")
+          assert m.health()["status"] == "ok"
+          print("voice-agent no-effect validation PASS")
+          PY
+
       - name: Record exact-SHA evidence in runner-controlled storage
         shell: bash
         run: |
