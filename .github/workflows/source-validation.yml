@@ -1,0 +1,78 @@
+name: Owned source and security validation
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  voice-agent-source-validation:
+    name: voice-agent-source-validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13.18'
+      - name: Verify exact clean source
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain --untracked-files=all)"
+          git diff --check
+      - name: Install complete hash-locked runtime and source-test dependencies
+        run: python -m pip install --disable-pip-version-check --require-hashes -r requirements-ci.lock
+      - name: Audit every production and CI dependency without ignores
+        run: |
+          python -m pip_audit --strict --require-hashes -r requirements.lock
+          python -m pip_audit --strict --require-hashes -r requirements-ci.lock
+      - name: Run all real API and build contract tests without external providers
+        run: python -m unittest discover -s tests -v
+      - name: Compile the owned API without executing a provider
+        run: python -c "from pathlib import Path; [compile(p.read_text(), str(p), 'exec') for p in Path('app').rglob('*.py')]"
+      - name: Build exact source image and exercise isolated nonroot API
+        shell: bash
+        run: |
+          set -euo pipefail
+          image="codestra-voice-agent:$EXPECTED_SHA"
+          docker build --pull --platform linux/amd64 -t "$image" .
+          container="$(docker run --detach --network none --read-only --cap-drop ALL --security-opt no-new-privileges --pids-limit 64 --memory 256m --cpus 1 --tmpfs /tmp:rw,noexec,nosuid,size=16m "$image")"
+          trap 'docker rm --force "$container" >/dev/null' EXIT
+          test "$(docker inspect --format '{{.Config.User}}' "$container")" = '10001:10001'
+          docker exec -i "$container" python - <<'PYCONTAINER'
+          import json, os, time, urllib.request
+          assert os.getuid() == 10001
+          for attempt in range(50):
+              try:
+                  with urllib.request.urlopen('http://127.0.0.1:8090/health', timeout=1) as response:
+                      assert json.load(response) == {'status': 'ok', 'service': 'codestra-voice-agent'}
+                  break
+              except OSError:
+                  time.sleep(0.2)
+          else:
+              raise AssertionError('isolated API startup failed')
+          request = urllib.request.Request('http://127.0.0.1:8090/v1/speech', data=json.dumps({'text': 'source-only fixture'}).encode(), headers={'Content-Type': 'application/json'})
+          with urllib.request.urlopen(request, timeout=2) as response:
+              result = json.load(response)
+              assert result['text'] == 'source-only fixture' and result['status'] == 'QUEUED'
+          print('ISOLATED_NONROOT_API_CONTRACT=PASS; no provider/audio operation is certified')
+          PYCONTAINER
+  voice-agent-secret-scan:
+    name: voice-agent-secret-scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Scan full source and reject candidate secret-scan overrides
+        run: bash .github/scripts/scan-secrets.sh
